@@ -1,0 +1,864 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../assets/favicon-32x32.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.0">
+    
+    
+      
+        <title>Server Configuration Reference - RKE2 - Rancher's Next Generation Kubernetes Distribution</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.bc7e593a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab28b872.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#2094f3">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Work Sans",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="blue" data-md-color-accent="">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rke2-server-cli-help" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../.." title="RKE2 - Rancher&#39;s Next Generation Kubernetes Distribution" class="md-header-nav__button md-logo" aria-label="RKE2 - Rancher's Next Generation Kubernetes Distribution">
+      
+  <img src="../../../assets/logo-stacked-white-rke2.svg" alt="logo">
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            RKE2 - Rancher's Next Generation Kubernetes Distribution
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Server Configuration Reference
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/rancher/rke2/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="RKE2 - Rancher&#39;s Next Generation Kubernetes Distribution" class="md-nav__button md-logo" aria-label="RKE2 - Rancher's Next Generation Kubernetes Distribution">
+      
+  <img src="../../../assets/logo-stacked-white-rke2.svg" alt="logo">
+
+    </a>
+    RKE2 - Rancher's Next Generation Kubernetes Distribution
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/rancher/rke2/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Installation
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Installation" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Installation
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../quickstart/" class="md-nav__link">
+      Quick Start
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../requirements/" class="md-nav__link">
+      Requirements
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ha/" class="md-nav__link">
+      High Availability
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2-4" type="checkbox" id="nav-2-4" checked>
+    
+    <label class="md-nav__link" for="nav-2-4">
+      Install Options
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Install Options" data-md-level="2">
+      <label class="md-nav__title" for="nav-2-4">
+        <span class="md-nav__icon md-icon"></span>
+        Install Options
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install_options/" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Server Configuration Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      Server Configuration Reference
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rke2-server-cli-help" class="md-nav__link">
+    RKE2 Server CLI Help
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../agent_config/" class="md-nav__link">
+      Agent Configuration Reference
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../methods/" class="md-nav__link">
+      Installation Methods
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../network_options/" class="md-nav__link">
+      Network Options
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../containerd_registry_configuration/" class="md-nav__link">
+      Containerd Registry Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../airgap/" class="md-nav__link">
+      Air-Gap Install
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../uninstall/" class="md-nav__link">
+      Uninstall
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Upgrades
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Upgrades" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Upgrades
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../upgrade/upgrade/" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../upgrade/basic_upgrade/" class="md-nav__link">
+      Upgrade Basics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../upgrade/automated_upgrade/" class="md-nav__link">
+      Automated Upgrades
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Security
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Security" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Security
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/hardening_guide/" class="md-nav__link">
+      CIS Hardening Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/cis_self_assessment/" class="md-nav__link">
+      CIS Self-Assessment Guide
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/fips_support/" class="md-nav__link">
+      FIPS 140-2 Enablement
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/policies/" class="md-nav__link">
+      Default Policy Configuration
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../security/selinux/" class="md-nav__link">
+      SELinux
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Architecture
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Architecture" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        <span class="md-nav__icon md-icon"></span>
+        Architecture
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../architecture/architecture/" class="md-nav__link">
+      Anatomy of a Next Generation Kubernetes Distribution
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../cluster_access/" class="md-nav__link">
+      Cluster Access
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../backup_restore/" class="md-nav__link">
+      Etcd Backup and Restore
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../networking/" class="md-nav__link">
+      Networking
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../helm/" class="md-nav__link">
+      Helm Integration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../advanced/" class="md-nav__link">
+      Advanced Options and Configuration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../known_issues/" class="md-nav__link">
+      Known Issues and Limitations
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rke2-server-cli-help" class="md-nav__link">
+    RKE2 Server CLI Help
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/rancher/rke2/edit/master/docs/install/install_options/server_config.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>Server Configuration Reference</h1>
+                
+                <p>This is a reference to all parameters that can be used to configure the rke2 agent. Note that while this is a reference to the command line arguments, the best way to configure RKE2 is using the <a href="../install_options/#configuration-file">configuration file</a>.</p>
+<h3 id="rke2-server-cli-help">RKE2 Server CLI Help<a class="headerlink" href="#rke2-server-cli-help" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>If an option appears in brackets below, for example <code>[$RKE2_TOKEN]</code>, it means that the option can be passed in as an environment variable of that name.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>NAME:
+   rke2 server - Run management server
+
+USAGE:
+   rke2 server <span class="o">[</span>OPTIONS<span class="o">]</span>
+
+OPTIONS:
+   --config FILE, -c FILE               <span class="o">(</span>config<span class="o">)</span> Load configuration from FILE <span class="o">(</span>default: <span class="s2">&quot;/etc/rancher/rke2/config.yaml&quot;</span><span class="o">)</span> <span class="o">[</span><span class="nv">$RKE2_CONFIG_FILE</span><span class="o">]</span>
+   --debug                              <span class="o">(</span>logging<span class="o">)</span> Turn on debug logs <span class="o">[</span><span class="nv">$RKE2_DEBUG</span><span class="o">]</span>
+   --bind-address value                 <span class="o">(</span>listener<span class="o">)</span> rke2 <span class="nb">bind</span> address <span class="o">(</span>default: <span class="m">0</span>.0.0.0<span class="o">)</span>
+   --advertise-address value            <span class="o">(</span>listener<span class="o">)</span> IP address that apiserver uses to advertise to members of the cluster <span class="o">(</span>default: node-external-ip/node-ip<span class="o">)</span>
+   --tls-san value                      <span class="o">(</span>listener<span class="o">)</span> Add additional hostname or IP as a Subject Alternative Name in the TLS cert
+   --data-dir value, -d value           <span class="o">(</span>data<span class="o">)</span> Folder to hold state <span class="o">(</span>default: <span class="s2">&quot;/var/lib/rancher/rke2&quot;</span><span class="o">)</span>
+   --cluster-cidr value                 <span class="o">(</span>networking<span class="o">)</span> Network CIDR to use <span class="k">for</span> pod IPs <span class="o">(</span>default: <span class="s2">&quot;10.42.0.0/16&quot;</span><span class="o">)</span>
+   --service-cidr value                 <span class="o">(</span>networking<span class="o">)</span> Network CIDR to use <span class="k">for</span> services IPs <span class="o">(</span>default: <span class="s2">&quot;10.43.0.0/16&quot;</span><span class="o">)</span>
+   --cluster-dns value                  <span class="o">(</span>networking<span class="o">)</span> Cluster IP <span class="k">for</span> coredns service. Should be in your service-cidr range <span class="o">(</span>default: <span class="m">10</span>.43.0.10<span class="o">)</span>
+   --cluster-domain value               <span class="o">(</span>networking<span class="o">)</span> Cluster Domain <span class="o">(</span>default: <span class="s2">&quot;cluster.local&quot;</span><span class="o">)</span>
+   --token value, -t value              <span class="o">(</span>cluster<span class="o">)</span> Shared secret used to join a server or agent to a cluster <span class="o">[</span><span class="nv">$RKE2_TOKEN</span><span class="o">]</span>
+   --token-file value                   <span class="o">(</span>cluster<span class="o">)</span> File containing the cluster-secret/token <span class="o">[</span><span class="nv">$RKE2_TOKEN_FILE</span><span class="o">]</span>
+   --write-kubeconfig value, -o value   <span class="o">(</span>client<span class="o">)</span> Write kubeconfig <span class="k">for</span> admin client to this file <span class="o">[</span><span class="nv">$RKE2_KUBECONFIG_OUTPUT</span><span class="o">]</span>
+   --write-kubeconfig-mode value        <span class="o">(</span>client<span class="o">)</span> Write kubeconfig with this mode <span class="o">[</span><span class="nv">$RKE2_KUBECONFIG_MODE</span><span class="o">]</span>
+   --kube-apiserver-arg value           <span class="o">(</span>flags<span class="o">)</span> Customized flag <span class="k">for</span> kube-apiserver process
+   --kube-scheduler-arg value           <span class="o">(</span>flags<span class="o">)</span> Customized flag <span class="k">for</span> kube-scheduler process
+   --kube-controller-manager-arg value  <span class="o">(</span>flags<span class="o">)</span> Customized flag <span class="k">for</span> kube-controller-manager process
+   --etcd-disable-snapshots             <span class="o">(</span>db<span class="o">)</span> Disable automatic etcd snapshots
+   --etcd-snapshot-schedule-cron value  <span class="o">(</span>db<span class="o">)</span> Snapshot interval <span class="nb">time</span> in cron spec. eg. every <span class="m">5</span> hours <span class="s1">&#39;* */5 * * *&#39;</span> <span class="o">(</span>default: <span class="s2">&quot;0 */12 * * *&quot;</span><span class="o">)</span>
+   --etcd-snapshot-retention value      <span class="o">(</span>db<span class="o">)</span> Number of snapshots to retain <span class="o">(</span>default: <span class="m">5</span><span class="o">)</span>
+   --etcd-snapshot-dir value            <span class="o">(</span>db<span class="o">)</span> Directory to save db snapshots. <span class="o">(</span>Default location: <span class="si">${</span><span class="nv">data</span><span class="p">-dir</span><span class="si">}</span>/db/snapshots<span class="o">)</span>
+   --disable value                      <span class="o">(</span>components<span class="o">)</span> Do not deploy packaged components and delete any deployed components <span class="o">(</span>valid items: rke2-canal, rke2-coredns, rke2-ingress, rke2-kube-proxy, rke2-metrics-server<span class="o">)</span>
+   --node-name value                    <span class="o">(</span>agent/node<span class="o">)</span> Node name <span class="o">[</span><span class="nv">$RKE2_NODE_NAME</span><span class="o">]</span>
+   --node-label value                   <span class="o">(</span>agent/node<span class="o">)</span> Registering and starting kubelet with <span class="nb">set</span> of labels
+   --node-taint value                   <span class="o">(</span>agent/node<span class="o">)</span> Registering kubelet with <span class="nb">set</span> of taints
+   --container-runtime-endpoint value   <span class="o">(</span>agent/runtime<span class="o">)</span> Disable embedded containerd and use alternative CRI implementation
+   --snapshotter value                  <span class="o">(</span>agent/runtime<span class="o">)</span> Override default containerd snapshotter <span class="o">(</span>default: <span class="s2">&quot;overlayfs&quot;</span><span class="o">)</span>
+   --private-registry value             <span class="o">(</span>agent/runtime<span class="o">)</span> Private registry configuration file <span class="o">(</span>default: <span class="s2">&quot;/etc/rancher/rke2/registries.yaml&quot;</span><span class="o">)</span>
+   --node-ip value, -i value            <span class="o">(</span>agent/networking<span class="o">)</span> IP address to advertise <span class="k">for</span> node
+   --resolv-conf value                  <span class="o">(</span>agent/networking<span class="o">)</span> Kubelet resolv.conf file <span class="o">[</span><span class="nv">$RKE2_RESOLV_CONF</span><span class="o">]</span>
+   --kubelet-arg value                  <span class="o">(</span>agent/flags<span class="o">)</span> Customized flag <span class="k">for</span> kubelet process
+   --kube-proxy-arg value               <span class="o">(</span>agent/flags<span class="o">)</span> Customized flag <span class="k">for</span> kube-proxy process
+   --protect-kernel-defaults            <span class="o">(</span>agent/node<span class="o">)</span> Kernel tuning behavior. If set, error <span class="k">if</span> kernel tunables are different than kubelet defaults.
+   --agent-token value                  <span class="o">(</span>experimental/cluster<span class="o">)</span> Shared secret used to join agents to the cluster, but not servers <span class="o">[</span><span class="nv">$RKE2_AGENT_TOKEN</span><span class="o">]</span>
+   --agent-token-file value             <span class="o">(</span>experimental/cluster<span class="o">)</span> File containing the agent secret <span class="o">[</span><span class="nv">$RKE2_AGENT_TOKEN_FILE</span><span class="o">]</span>
+   --server value, -s value             <span class="o">(</span>experimental/cluster<span class="o">)</span> Server to connect to, used to join a cluster <span class="o">[</span><span class="nv">$RKE2_URL</span><span class="o">]</span>
+   --cluster-reset                      <span class="o">(</span>experimental/cluster<span class="o">)</span> Forget all peers and become sole member of a new cluster <span class="o">[</span><span class="nv">$RKE2_CLUSTER_RESET</span><span class="o">]</span>
+   --cluster-reset-restore-path value   <span class="o">(</span>db<span class="o">)</span> Path to snapshot file to be restored
+   --secrets-encryption                 <span class="o">(</span>experimental<span class="o">)</span> Enable Secret encryption at rest
+   --selinux                            <span class="o">(</span>agent/node<span class="o">)</span> Enable SELinux in containerd <span class="o">[</span><span class="nv">$RKE2_SELINUX</span><span class="o">]</span>
+   --system-default-registry value      <span class="o">(</span>image<span class="o">)</span> Private registry to be used <span class="k">for</span> all system Docker images <span class="o">[</span><span class="nv">$RKE2_SYSTEM_DEFAULT_REGISTRY</span><span class="o">]</span>
+   --cloud-provider-name value          <span class="o">(</span>cloud provider<span class="o">)</span> Cloud provider name <span class="o">[</span><span class="nv">$RKE2_CLOUD_PROVIDER_NAME</span><span class="o">]</span>
+   --cloud-provider-config value        <span class="o">(</span>cloud provider<span class="o">)</span> Cloud provider configuration file path <span class="o">[</span><span class="nv">$RKE2_CLOUD_PROVIDER_CONFIG</span><span class="o">]</span>
+   --profile value                      <span class="o">(</span>security<span class="o">)</span> Validate system configuration against the selected benchmark <span class="o">(</span>valid items: cis-1.5<span class="o">)</span> <span class="o">[</span><span class="nv">$RKE2_CIS_PROFILE</span><span class="o">]</span>
+</code></pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../install_options/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Overview
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../agent_config/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Agent Configuration Reference
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/vendor.6a3d08fc.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.71201edf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
