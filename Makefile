@@ -43,6 +43,10 @@ build-image-kubernetes:                   ## Build the kubernetes image
 build-image-runtime:                      ## Build the runtime image
 	./scripts/build-image-runtime
 
+.PHONY: build-image-runtime-cilium
+build-image-runtime-cilium:               ## Build the runtime image that has cilium
+	./scripts/build-image-runtime-cilium
+
 .PHONY: publish-image-kubernetes
 publish-image-kubernetes: build-image-kubernetes
 	./scripts/publish-image-kubernetes

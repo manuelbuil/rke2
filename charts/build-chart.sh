@@ -4,8 +4,14 @@ set -eux -o pipefail
 
 : "${CHART_FILE?required}"
 : "${CHART_NAME:="$(basename "${CHART_FILE%%.yaml}")"}"
-: "${CHART_URL:="${CHART_REPO:="https://rke2-charts.rancher.io"}/assets/${CHART_NAME}/${CHART_NAME}-${CHART_VERSION:="v0.0.0"}.tgz"}"
-curl -fsSL "${CHART_URL}" -o "${CHART_TMP:=$(mktemp)}"
+if [ -z "${CHART_TMP:-}" ]; then
+  : "${CHART_URL:="${CHART_REPO:="https://rke2-charts.rancher.io"}/assets/${CHART_NAME}/${CHART_NAME}-${CHART_VERSION:="v0.0.0"}.tgz"}"
+  curl -fsSL "${CHART_URL}" -o "${CHART_TMP:=$(mktemp)}"
+else
+  CHART_URL=local
+fi
+
+env | grep CHART
 cat <<-EOF > "${CHART_FILE}"
 apiVersion: helm.cattle.io/v1
 kind: HelmChart

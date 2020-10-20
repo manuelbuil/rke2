@@ -62,6 +62,40 @@ It is also possible to use both a configuration file and cli arguments.  In thes
 
 Finally, the location of the config file can be changed either through the cli argument `--config FILE, -c FILE`, or the environment variable `$RKE2_CONFIG_FILE`.
 
+## Cilium
+
+To build the runtime image using cilium instead of canal, first of all you require to build the HelmChart:
+
+`CHART_FILE=rke2-cilium.yaml CHART_TMP=$HOME/rke2/cilium-1.8.4.tgz charts/build-chart.sh`
+
+That will build rke2-cilium.yaml. Note that cilium-1.8.4.tgz is part of this repo and was created by rke2-charts scripts.
+
+Once you have rke2-cilium.yaml in the $HOME/rke2 directory, run:
+
+`make build-image-runtime-cilium`
+
+That will end up generating a Docker image and saving it as a tar file in build/images/rke2-runtime.tar. Remember the tag of the image, in my case it is `v1.18.9-dev-3ba3b9d5-dirty`. I'll refer to it as $TAG
+
+Copy that tarball to a directory $YOUR_DIRECTORY/agent/images/
+
+Then, change the systemctl file:
+
+```bash
+sudo vi /usr/local/lib/systemd/system/rke2-server.service
+```
+
+Add:
+ Environment="RKE2_RUNTIME_IMAGE=rancher/rke2-runtime-cilium:$TAG"
+ ExecStart=/usr/local/bin/rke2 server --data-dir=$YOUR_DIRECTORY
+
+Reload the systemd unit and start it
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl start rke2-server.service
+```
+
+
 ## FAQ
 
 - [How is the different from RKE1 or K3s?](https://docs.rke2.io/#how-is-this-different-from-rke-or-k3s)
