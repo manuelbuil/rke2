@@ -36,8 +36,7 @@ func NewSecretsEncryptCommand() cli.Command {
 		secretsencrypt.Disable,
 		secretsencrypt.Prepare,
 		secretsencrypt.Rotate,
-		secretsencrypt.Reencrypt,
-		secretsencrypt.RotateKeys)
+		secretsencrypt.Reencrypt)
 
 	for i, subcommand := range command.Subcommands {
 		if s, ok := subcommandOpts[subcommand.Name]; ok {
