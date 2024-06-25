@@ -76,6 +76,7 @@ param (
     $ChannelUrl = "https://update.rke2.io/v1-release/channels"
 )
 
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
@@ -664,15 +665,20 @@ function Install-AirgapTarball() {
 }
 
 # Globals
+Write-Host = "MANU - Starting the execution"
 $STORAGE_URL = "https://rke2-ci-builds.s3.amazonaws.com"
 $INSTALL_RKE2_GITHUB_URL = "https://github.com/rancher/rke2"
 
+Write-Host = "MANU - About to confirm features"
 Confirm-WindowsFeatures -RequiredFeatures @("Containers")
+Write-Host = "MANU - About to Set-Env"
 Set-Environment 
+Write-Host = "MANU - About to Test-MethodConflict"
 Test-MethodConflict
 
 switch ($Method) {
     "tar" { 
+        Write-Host = "MANU - tar method chosen"
         $temp = ""
         if ($env:TMP) {
             $temp = $env:TMP
@@ -685,6 +691,7 @@ switch ($Method) {
         }
         New-Item -Path $temp -Name rke2-install -ItemType Directory | Out-Null
 
+        Write-Host = "MANU - About to get architecture Info"
         $archInfo = Get-ArchitectureInfo
         $suffix = $archInfo.Suffix    
         $arch = $archInfo.Arch
@@ -695,6 +702,7 @@ switch ($Method) {
         $TMP_AIRGAP_CHECKSUMS = Join-Path -Path $TMP_DIR -ChildPath "rke2-images.checksums"
         $TMP_AIRGAP_TARBALL = Join-Path -Path $TMP_DIR -ChildPath "rke2-images.tarball"
 
+        Write-Host = "MANU - About to query ArtifactPath"
         if ($ArtifactPath) {
             if ($Commit) {
                 $binaryChecksums = Copy-LocalBinaryChecksums -CommitHash $Commit -Path $ArtifactPath -DestinationPath $TMP_BINARY_CHECKSUMS
@@ -729,9 +737,11 @@ switch ($Method) {
         Write-InfoLog "install complete; you may want to run:  `$env:PATH+=`";$TarPrefix\bin;C:\var\lib\rancher\rke2\bin`""
     }
     "choco" {  
+        Write-Host = "MANU - choco method chosen"
         Write-FatalLog "Currently unsupported installation method. $Method will be supported soon.."
     }
     Default {
+        Write-Host = "MANU - default method chosen"
         Write-FatalLog "Invalid installation method. $Method not supported."
     }
 }
