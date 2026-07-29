@@ -1220,8 +1220,6 @@ github.com/k3s-io/etcd/server/v3 v3.6.14-k3s1 h1:yTlDjmjVu8+s6uhArtRFx8kSI0Gyg9v
 github.com/k3s-io/etcd/server/v3 v3.6.14-k3s1/go.mod h1:yj1SNtvmNLLl7JUQY3vpaUBm24qAzTVixJn/1OKG6i4=
 github.com/k3s-io/helm-controller v0.17.7 h1:9hzzLE4YeCHmpAn2Y/A4DjqYAQtQxnbsQSkBx6qTJrc=
 github.com/k3s-io/helm-controller v0.17.7/go.mod h1:pLlCfQ0hLtuA5Ga9fcIWWdB20id67pUgYCGHYVIn9e4=
-github.com/k3s-io/k3s v1.35.1-0.20260720163440-b33e445fb84a h1:aTswe2mGPwcsCyLQm5+012FdNAn4frPioV4OstEkhok=
-github.com/k3s-io/k3s v1.35.1-0.20260720163440-b33e445fb84a/go.mod h1:PMsOwTO2iKRqGTVoBNi2vXh2uDEdDjuLGrGr8SqJwfE=
 github.com/k3s-io/kine v0.16.3 h1:NstMQZ7AIRA9dC+uu+ZpK5eITwsANrSDX4Fe6yTSmpU=
 github.com/k3s-io/kine v0.16.3/go.mod h1:8cpZsCKacjwrka3BjQDY7sCQ2qI9iGtcCs2I/I5euec=
 github.com/k3s-io/klog/v2 v2.140.0-k3s1 h1:Z6S9oqaxcKtLaTcQNgWsaZNE5a+qJmCrTI+Lahor4X8=
@@ -1354,6 +1352,8 @@ github.com/mailru/easyjson v0.0.0-20190614124828-94de47d64c63/go.mod h1:C1wdFJiN
 github.com/mailru/easyjson v0.0.0-20190626092158-b2ccc519800e/go.mod h1:C1wdFJiN94OJF2b5HbByQZoLdCWB1Yqtg26g4irojpc=
 github.com/mailru/easyjson v0.7.0/go.mod h1:KAzv3t3aY1NaHWoQz1+4F1ccyAH66Jk7yos7ldAVICs=
 github.com/mailru/easyjson v0.7.7/go.mod h1:xzfreul335JAWq5oZzymOObrkdz5UnU4kGfJJLY9Nlc=
+github.com/manuelbuil/k3s v0.0.0-20260729135155-a78a1b27842a h1:JKYj3YV+yY8fUdY7et4DAyJV0C6ay2iJprrQGXv/1HE=
+github.com/manuelbuil/k3s v0.0.0-20260729135155-a78a1b27842a/go.mod h1:PMsOwTO2iKRqGTVoBNi2vXh2uDEdDjuLGrGr8SqJwfE=
 github.com/marcopolo/simnet v0.0.4 h1:50Kx4hS9kFGSRIbrt9xUS3NJX33EyPqHVmpXvaKLqrY=
 github.com/marcopolo/simnet v0.0.4/go.mod h1:tfQF1u2DmaB6WHODMtQaLtClEf3a296CKQLq5gAsIS0=
 github.com/marten-seemann/tcp v0.0.0-20210406111302-dfbc87cc63fd h1:br0buuQ854V8u83wA0rVZ8ttrq5CpaPZdvrK0LP2lOk=

@@ -139,6 +139,7 @@ var (
 		"default-runtime":                   copyFlag,
 		"private-registry":                  copyFlag,
 		"system-default-registry":           copyFlag,
+		"critical-extra-config":             dropFlag, // set programmatically by RKE2, not exposed on the CLI
 		"node-ip":                           copyFlag,
 		"node-external-ip":                  copyFlag,
 		"node-internal-dns":                 copyFlag,

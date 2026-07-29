@@ -83,6 +83,16 @@ func Server(clx *cli.Context, cfg rke2cli.Config) error {
 		leaderControllers = append(leaderControllers, cisnetworkpolicy.Cleanup)
 	}
 
+	// Serialize RKE2-specific critical settings into K3s's opaque
+	// CriticalExtraConfig field so that a joining control-plane node with
+	// divergent settings (e.g. a different ingress-controller) fails fast during
+	// bootstrap validation instead of causing non-deterministic cluster behavior.
+	extraConfig, err := serializeCriticalExtraConfig(clx, cfg)
+	if err != nil {
+		return err
+	}
+	cmds.ServerConfig.CriticalExtraConfig = extraConfig
+
 	return server.RunWithControllers(clx, leaderControllers, controllers)
 }
 
